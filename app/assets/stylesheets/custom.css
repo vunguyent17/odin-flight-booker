@@ -1,0 +1,15 @@
+turbo-frame {
+  display: block;
+}
+turbo-frame[busy] {
+  opacity: 20%;
+  /* visibility: hidden; */
+}
+
+turbo-frame[busy] ~ .loading-ring {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}

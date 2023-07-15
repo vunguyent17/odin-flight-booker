@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  route: one
+  departure_time: 2023-06-26 20:56:58
+
+two:
+  route: two
+  departure_time: 2023-06-26 20:56:58

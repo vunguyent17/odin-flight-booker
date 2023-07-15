@@ -1,0 +1,33 @@
+<div class="container my-2">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex align-items-middle justify-content-between mb-4">
+        <div>
+          <h1 class="font-bold"><%= @profile.username %></h1>
+          <%= "email: "+@profile.email %>
+        </div>
+        <div class="text-end">
+          <% if current_user.username == @profile.username %>
+            <%= link_to "Edit profile", edit_user_registration_path, class: "btn btn-outline-primary mb-2" %><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h4>Booking history</h4>
+      <div class="p-2 border border-secondary rounded-2">
+        <% @profile.bookings.order(created_at: :desc).each do |booking| %>
+          <div class="p-2 border-bottom border-secondary">
+            <%= link_to "Booking No. #{booking.id}", booking_path(booking.id) %>
+            <ul>
+              <li>Created on: <%= booking.created_at.localtime.strftime('%b %e, %Y at %l:%M %p (GMT%Z)')%></li>
+              <li>From <%= booking.flight.departure_airport.name %> to <%= booking.flight.arrival_airport.name %>
+                <li>Number of passengers: <%= booking.passengers.count %></li>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="card my-4">
+    <div class="card-body">
+      <div class="container-fluid">
+        <div class="row mb-4">
+          <div class="col">
+            <small>Booking No. <%= @booking.id %></small>
+          </div>
+          <div class="col text-end">
+            <small>Created by <%= @booking.user.fullname %> (<%= @booking.user.username %>)<br/>
+               on <%= @booking.created_at.localtime.strftime('%b %e, %Y at %l:%M %p (GMT%Z)') %></small>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-12">
+            <h3 class="card-title text-center">Your Flight Booking Information</h3>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-12 border border-success rounded-2">
+            <div class="p-2">
+              <%= render partial: "flights/flight_data" , locals: {flight: @booking.flight} %>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col">
+            <h4 class="text-center">Passengers list</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @booking.passengers.each do |passenger| %>
+                  <tr>
+                    <th scope="row"><%= passenger.id %></th>
+                    <td><%= passenger.name %></td>
+                    <td><%= passenger.email %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="col bg-light m-3 p-3 border border-secondary rounded-2">
+            <p><span class="fw-bold">Note: </span><br/><%=@booking.note%></p>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="d-grid gap-2 col-12 mx-auto">
+            <%= link_to "Back to home", root_path, class:"btn btn-primary d-md-block" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

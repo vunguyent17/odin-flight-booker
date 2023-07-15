@@ -1,0 +1,54 @@
+<main>
+  <div class="container mb-3">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="text-center mb-4">Search flights</h3>
+        <%= form_with url: root_path, method: :get, data: {turbo_frame: "flight_frame"}  do |form| %>
+          <div class="row g-4">
+            <div class="col-md">
+              <div class="field mb-4">
+                <%= form.label :departure_airport, class: "form-label" %><br />
+                <%= form.select :departure_airport, @airports.map {|airport| ["#{airport.code} (#{airport.name})", airport.code]}, {}, {class: "form-select"} %>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="field mb-4">
+                <%= form.label :arrival_airport, class: "form-label" %><br />
+                <%= form.select :arrival_airport,  @airports.map {|airport| ["#{airport.code} (#{airport.name})", airport.code]}, {}, {class: "form-select"} %>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="field mb-4">
+                <%= form.label :number_of_passengers, class: "form-label" %><br />
+                <%= form.select :number_of_passengers, [*1..4], {:selected => 1}, {class: "form-select"} %>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="field mb-4">
+                <%= form.label :flight_date, class: "form-label" %><br />
+                <%= form.date_field :flight_date, min: @flightdates.min.to_date, max: @flightdates.max.to_date, class:"form-control" %>
+              </div>
+            </div>
+            <div class="col-md align-items-end">
+              <%= form.label :search, class: "form-label text-white" %><br />
+              <div class="actions d-grid gap-2 col-12 mx-auto mb-4">
+                <%= form.submit "Search", class:"btn btn-primary d-md-block", onClick: "this.form.requestSubmit()" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="row bg-light">
+      <div class="col-md-12">
+        <h3 class="text-center m-4">Available flights</h3>
+        <div>
+          <%= render partial: "flights/flight_frame", locals: {flights: nil, num_tickets: 0, loading: true } %>
+          <div class="loading-ring spinner-border hidden" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

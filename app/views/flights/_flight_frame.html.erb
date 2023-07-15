@@ -1,0 +1,19 @@
+<%= turbo_frame_tag "flight_frame" do  %>
+  <div id="flight-data">
+    <% if flights.nil? %>
+      <p>Available flights will be listed here</p>
+    <% elsif flights.empty? %>
+      <p>No result</p>
+    <% else %>
+      <%= form_with url: new_booking_path, method: :get, data: {turbo_frame:"_top"} do |form| %>
+        <% flights.each do |flight| %>
+          <%= render partial: flight , locals: {form: form} %>
+        <% end %>
+        <div class="actions d-grid gap-2 col-12 mx-auto mb-4">
+          <%= form.hidden_field :num_tickets, value: num_tickets %>
+          <%= form.submit "Choose this flight", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
